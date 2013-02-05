@@ -10,6 +10,8 @@ package matrixtictactoe.board;
 
 public class tic {
     
+    public tic(){}
+    
     /*
      * X will be represented as 1
      * O will be represented as 2
