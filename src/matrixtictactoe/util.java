@@ -71,6 +71,20 @@ public class util{
          * check diagonals, this has to to be
          * hard coded (i think)
          */
+        for(int i =0;i<2;i++){
+            if(board.getState(i,i) != board.getState(i+1,i+1)){
+                break;
+            }
+            
+            if(i+1 == 2){
+                return board.getState(i,i);
+            }
+        }
+        
+        
+        //      0,0 | 0,1 | 0,2
+        //      1,0 | 1,1 | 1,2
+        //      2,0 | 2,1 | 2,2
         
         
         
