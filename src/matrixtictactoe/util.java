@@ -15,6 +15,41 @@ public class util{
  */
     public int tic_win(tic board){
         
+        /* iterate through the rows 
+         * check to see if a row has 3 in a row
+         */
+        for(int i =0;i<7;i+=3){
+            for(int j=i;j<i+2;j++){
+                
+                /* simple check, if the current square is
+                 * not equal to the next square, must be wrong
+                 */
+                if(board.getState(i, j) != board.getState(i,j+1)){
+                    return 0;
+                }
+                
+                /* if the loop has made it this far
+                 * clearly there is 3 in a row!
+                 */
+                if(j+1 == 3){
+                    return board.getState(i,j+1);
+                }
+                
+            }
+        }
+        
+        /* iterate thorugh the coloumns to see
+         * if a column has 3 in a coloumn!
+         */
+        for(int i =0;i<3;i++){
+            
+        }
+        
+        /* check diagonals, this has to to be
+         * hard coded 
+         */
+        
+        
         
         return 0;   
     }
@@ -33,6 +68,21 @@ public class util{
   * 3) determine if the game is over, the whole board
   */
     public int game_done(board game){
+        
+        /* iterate through every box in the game board */
+        for(int i =0; i<3;i++){
+            for(int j=0;j<3;j++){
+              
+               /* sets up the location array */
+              int[] loc = {i,j};
+              
+              /* compares to see a board is won */
+              if( tic_win(game.getState(loc)) >= 1 ){
+                return tic_win(game.getState(loc));
+              }
+                
+            }
+        }
         
         return 0;
     }
