@@ -81,11 +81,12 @@ public class util{
             }
         }
         
-        
-        //      0,0 | 0,1 | 0,2
-        //      1,0 | 1,1 | 1,2
-        //      2,0 | 2,1 | 2,2
-        
+        /* another hard coded solution to the other main diagonal */
+        if( board.getState(2,0) == board.getState(1,1)){
+            if(board.getState(2,0) == board.getState(0,2)){
+                return board.getState(1,1);
+            }
+        }
         
         
         return 0;   
