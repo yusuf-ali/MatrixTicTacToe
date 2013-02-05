@@ -9,19 +9,24 @@ import matrixtictactoe.board.board;
  */
 public class game {
     
+    private util Util = new util();
     private board newGame = new board();    /* creates board game */
     private boolean turn;                   /* 0 is X turn, 1 is O turn */
     private int state;                      /* returns winner int     */
     
-    public game(){}
+    public game(){
+        /* initilizes the game states */
+        state = 0;
+        turn = false;
+    }
     
     /* allows the player to make their turn */
     public int makeTurn(int loc[]){
         int fturn;
         
         /* quick reference to who's turn it is */
-        if (turn == false){ fturn = 1;}
-        else{ fturn = 2;}
+        if (turn == false){ fturn = 1; }
+        else{ fturn = 2; }
         
         /* checks to make sure that the square is empty 
          * or in other words, value == 0
@@ -35,9 +40,13 @@ public class game {
         /* change the turn setting */
         turn = !turn;
         
+        /* determine if the game is over */
+        if (Util.game_done(newGame) >= 1){
+            state = Util.game_done(newGame);
+        }
+        
        return 1; 
     }
-    
     
     public int getState(){
         return state;
