@@ -18,18 +18,21 @@ public class util{
         /* iterate through the rows 
          * check to see if a row has 3 in a row
          */
-        for(int i =0;i<7;i+=3){
-            for(int j=i;j<i+2;j++){
+        for(int i =0;i<3;i++){
+            for(int j=0;j<2;j++){
                 
-                /* simple check, if the current square is
-                 * not equal to the next square, must be wrong
+                /*
+                 * if the current square is not equal to
+                 * the next square, then clearly there is not
+                 * 3 in a row
                  */
                 if(board.getState(i, j) != board.getState(i,j+1)){
-                    return 0;
+                    break;
                 }
                 
-                /* if the loop has made it this far
-                 * clearly there is 3 in a row!
+                /*
+                 * if it makes it this far, then clearly 
+                 * there is 3 in a row
                  */
                 if(j+1 == 3){
                     return board.getState(i,j+1);
@@ -42,11 +45,31 @@ public class util{
          * if a column has 3 in a coloumn!
          */
         for(int i =0;i<3;i++){
-            
+            for(int j=0;j<2;j++){
+                
+                /*
+                 * if the current square is not equal to the 
+                 * square below, then clearly there is not 3
+                 * in a column
+                 */
+                if(board.getState(j,i) != board.getState(j+1,i)){
+                    break;
+                }
+                
+                /*
+                 * if it makes it this far, then clearly 
+                 * there is 3 in a column
+                 */
+                if(j+1 == 3){
+                    return board.getState(j+1,i);
+                }
+                
+            }
         }
         
-        /* check diagonals, this has to to be
-         * hard coded 
+        /* 
+         * check diagonals, this has to to be
+         * hard coded (i think)
          */
         
         

@@ -17,7 +17,7 @@ public class tic {
      * O will be represented as 2
      * a 0 represents empty spot
      */
-    private int [][] tic = new int[3][3];
+    private int[][] tic = new int[3][3];
     
     /* sets the value of the specified co-ordinate */
     public void setState(int x,int y, int value){
