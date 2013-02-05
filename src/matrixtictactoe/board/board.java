@@ -13,6 +13,14 @@ public class board {
      */
     tic[][] board = new tic[3][3];
     
+    public void setState(int[] loc, int value){
+        board[loc[0]][loc[1]].setState(loc[3],loc[4],value);
+    }
+    
+    public tic getState(int[] loc){
+        return board[loc[0]][loc[1]];
+    }
+    
     /*
      * can't think of anything else to add
      * to this file.....yea...

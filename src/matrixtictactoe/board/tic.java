@@ -20,13 +20,13 @@ public class tic {
     private int [][] tic = new int[3][3];
     
     /* sets the value of the specified co-ordinate */
-    public void setState(int[] loc, int value){
-        tic[loc[0]][loc[1]] = value;
+    public void setState(int x,int y, int value){
+        tic[x][y] = value;
     }
     
     /* returns the value of the specified co-ordinate */
-    public int getState(int[] loc){
-        return tic[loc[0]][loc[1]];
+    public int getState(int x, int y){
+        return tic[x][y];
     }
     
 }
