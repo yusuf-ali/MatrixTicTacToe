@@ -29,7 +29,7 @@ public class engine {
         return list;
     }
     
-    public double make_descision(game Game,int depth,int floor,int ceiling,int player){
+    public double make_descision(game Game,int depth,double floor,double ceiling){
         
         /* if terminal node, returns the heuristic 
          * value of the board
@@ -40,24 +40,63 @@ public class engine {
          * get all the possible board states
          */
         game[] states = getBoards(Game);
+        game bestGame;  /* this will be the "best game" */      
         
-        if (player == 2){   /* this is for O */
+        if (Game.getTurn() == true){   /* this is for O */
+            
+            /* O wants to maximize the heuristic value */
             
             for(int i =0;i<9;i++){
              
                 if(states[i] == null){continue;}    /* skips empty states */
                 
+                /* obtain the heuristic 'best move' X can make */
+                double heuristic = make_descision(states[i],depth-1,floor,ceiling);
                 
+                /* figure out which move is best for O
+                 * this will be the maximum move (worst senario for X)
+                 */
+                if (heuristic >= floor){
+                    floor = heuristic; bestGame = states[i];
+                }
                 
-                if (ceiling <= floor){ /*break */ }
+                /*
+                 * not sure if this works?
+                 */
+                if (ceiling <= floor){
+                    break;
+                }
+                
             }
             
             return floor;
             
-        }else{              /* this is for X */
+        }else{              /* this is for X */            
             
-            
-            if (floor <= ceiling){/* break */ }
+            /* X wants to minimize the heuristic value */
+            for(int i=0;i<9;i++){
+                
+                if(states[i] == null){continue;} /* skips empty states */
+                
+                /* obtain the heuristic 'best move O can make */
+                double heuristic = make_descision(states[i],depth-1,floor,ceiling);
+                
+                /*
+                 * figure out which move is best for X
+                 * this will be the minimum move (worst senario for O)
+                 */
+                if( heuristic <= ceiling){
+                    ceiling = heuristic; bestGame = states[i];
+                }
+                
+                /*
+                 * not sure that this works?
+                 */
+                if(floor <= ceiling){
+                    break;
+                }
+                
+            }
             
             return ceiling;
         }
