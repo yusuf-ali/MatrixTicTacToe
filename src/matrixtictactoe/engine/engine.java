@@ -11,6 +11,7 @@ import matrixtictactoe.game;
 public class engine {
 
     private game master;    
+    private game best_move;
     
     public engine(game Game){
         master = Game;
@@ -42,7 +43,7 @@ public class engine {
         game[] states = getBoards(Game);
         game bestGame;  /* this will be the "best game" */      
         
-        if (Game.getTurn() == true){   /* this is for O */
+        if (Game.getTurn() == true){   /* this is O's turn */
             
             /* O wants to maximize the heuristic value */
             
@@ -58,6 +59,7 @@ public class engine {
                  */
                 if (heuristic >= floor){
                     floor = heuristic; bestGame = states[i];
+                    best_move = states[i];
                 }
                 
                 /*
@@ -71,7 +73,7 @@ public class engine {
             
             return floor;
             
-        }else{              /* this is for X */            
+        }else{              /* this is X's turn */            
             
             /* X wants to minimize the heuristic value */
             for(int i=0;i<9;i++){
@@ -87,6 +89,7 @@ public class engine {
                  */
                 if( heuristic <= ceiling){
                     ceiling = heuristic; bestGame = states[i];
+                    best_move = states[i];
                 }
                 
                 /*
@@ -103,5 +106,7 @@ public class engine {
         
     }
     
-    
+    public game getbest(){
+        return best_move;
+    }
 }
