@@ -17,12 +17,14 @@ public class game {
     
     public game(int[] firstmove){
         /* initilizes the game states */
+        lastmove = new int[3];
+        
         state = 0;
         
         newGame.setState(firstmove,1);
         
-        lastmove[0] = firstmove[3];
-        lastmove[1] = firstmove[4];
+        lastmove[0] = firstmove[2];
+        lastmove[1] = firstmove[3];
         
         turn = true;
     }
@@ -46,7 +48,7 @@ public class game {
         /* checks to make sure that the square is empty 
          * or in other words, value == 0
          */
-        int value = newGame.getState(loc).getState(loc[3], loc[4]);
+        int value = newGame.getState(loc).getState(loc[2], loc[3]);
         if (value > 0){return 0;} 
         
         /* if it is empty, make the move */
@@ -56,8 +58,8 @@ public class game {
         turn = !turn;
         
         /* update the last move array */
-        lastmove[0] = loc[3];
-        lastmove[1] = loc[4];
+        lastmove[0] = loc[2];
+        lastmove[1] = loc[3];
         
         /* determine if the game is over */
         if (Util.game_done(newGame) >= 1){
