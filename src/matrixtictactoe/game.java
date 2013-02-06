@@ -2,11 +2,6 @@ package matrixtictactoe;
 
 import matrixtictactoe.board.board;
 
-/* DICKED UP IN THE FACT
- * THAT LAST MOVE DICTATES THE 
- * NEXT MOVE SMALLER SQUARE
- */
-
 
 /*
  * game class should manage and control the game
@@ -18,11 +13,18 @@ public class game {
     private board newGame = new board();    /* creates board game */
     private boolean turn;                   /* 0 is X turn, 1 is O turn */
     private int state;                      /* returns winner int     */
+    private int[] lastmove;                 /* co-ordinates of the last move */
     
-    public game(){
+    public game(int[] firstmove){
         /* initilizes the game states */
         state = 0;
-        turn = false;
+        
+        newGame.setState(firstmove,1);
+        
+        lastmove[0] = firstmove[3];
+        lastmove[1] = firstmove[4];
+        
+        turn = true;
     }
     
     /* allows the player to make their turn */
@@ -32,6 +34,14 @@ public class game {
         /* quick reference to who's turn it is */
         if (turn == false){ fturn = 1; }
         else{ fturn = 2; }
+        
+        /* check if the move is legal 
+         * or in other words, the first 2 elements of 
+         * loc, are equal to the 2 elements of lastmove
+         */
+        if (loc[0] != lastmove[0] || loc[1] != lastmove[1]){
+            return 0;
+        }
         
         /* checks to make sure that the square is empty 
          * or in other words, value == 0
@@ -44,6 +54,10 @@ public class game {
         
         /* change the turn setting */
         turn = !turn;
+        
+        /* update the last move array */
+        lastmove[0] = loc[3];
+        lastmove[1] = loc[4];
         
         /* determine if the game is over */
         if (Util.game_done(newGame) >= 1){
