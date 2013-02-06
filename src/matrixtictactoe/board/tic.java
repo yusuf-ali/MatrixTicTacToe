@@ -2,7 +2,6 @@
  * this is a smaller board
  * where the main board will contain
  * a 3x3 board of smaller boards
- * 
  */
 
 

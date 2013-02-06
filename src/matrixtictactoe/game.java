@@ -2,6 +2,11 @@ package matrixtictactoe;
 
 import matrixtictactoe.board.board;
 
+/* DICKED UP IN THE FACT
+ * THAT LAST MOVE DICTATES THE 
+ * NEXT MOVE SMALLER SQUARE
+ */
+
 
 /*
  * game class should manage and control the game
