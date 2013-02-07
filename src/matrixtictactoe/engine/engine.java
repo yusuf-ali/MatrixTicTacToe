@@ -1,5 +1,7 @@
 package matrixtictactoe.engine;
 
+import matrixtictactoe.board.board;
+import matrixtictactoe.board.tic;
 import matrixtictactoe.game;
 
 /*
@@ -9,7 +11,7 @@ import matrixtictactoe.game;
  * http://en.wikipedia.org/wiki/Alpha–beta_pruning
  */
 public class engine {
-
+    
     private game master;    
     private game best_move;
     
@@ -23,9 +25,38 @@ public class engine {
     }
     
     /* returns all the possible board states */
-    private game[] getBoards(game Game){
-        game[] list = new game[3];
+    public game[] getBoards(game Game){
+        board b = Game.getBoard();
+        int loc[] = Game.getLast();
+        tic t = b.getState(loc);
         
+        /* 
+         * the amount of possible board states will be the amount of 0's
+         * in the specific "smaller" board
+         */
+        int n = t.getspots();
+        game[] list = new game[n--];
+        
+        for(int i=0;i<3;i++){
+            for(int j=0;j<3;j++){
+                
+                /* find the empty spots */
+                if(t.getState(i, j) != 0){ continue; }
+                    
+                /* make game if it is 0 */
+                    /* formulate location array */
+                int[] f = {loc[0],loc[1],i,j};
+                
+                /* store the node into array */
+                list[n-1] = new game(Game);
+                list[n-1].makeTurn(f);
+                
+                n--;
+                
+                /* speed check... */
+                if(list[0] != null) {return list;}                
+            }
+        }
         
         return list;
     }
@@ -43,11 +74,11 @@ public class engine {
         game[] states = getBoards(Game);
         game bestGame;  /* this will be the "best game" */      
         
-        if (Game.getTurn() == true){   /* this is O's turn */
+        if (Game.getTurn() == false){   /* this is O's turn */
             
             /* O wants to maximize the heuristic value */
             
-            for(int i =0;i<9;i++){
+            for(int i =0;i<states.length;i++){
              
                 if(states[i] == null){continue;}    /* skips empty states */
                 
@@ -76,7 +107,7 @@ public class engine {
         }else{              /* this is X's turn */            
             
             /* X wants to minimize the heuristic value */
-            for(int i=0;i<9;i++){
+            for(int i=0;i<states.length;i++){
                 
                 if(states[i] == null){continue;} /* skips empty states */
                 
