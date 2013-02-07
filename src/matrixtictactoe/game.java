@@ -17,7 +17,7 @@ public class game {
     
     public game(int[] firstmove){
         /* initilizes the game states */
-        lastmove = new int[3];
+        lastmove = new int[4];
         
         state = 0;
         
@@ -25,6 +25,8 @@ public class game {
         
         lastmove[0] = firstmove[2];
         lastmove[1] = firstmove[3];
+        lastmove[2] = firstmove[0];
+        lastmove[3] = firstmove[1];
         
         turn = true;
     }
@@ -35,14 +37,26 @@ public class game {
      * copying the reference 
      */
     public game(game dummy){
-        this.newGame = dummy.getBoard();
+        lastmove = new int[4];
+        
+        int[] l = dummy.getLast();
+        
+        this.newGame = new board(dummy.getBoard());
         this.turn = dummy.getTurn();
         this.state = dummy.getState();
-        this.lastmove = dummy.getLast();
+      
+        this.lastmove[0] = l[0];
+        this.lastmove[1] = l[1];
+        this.lastmove[2] = l[2];
+        this.lastmove[3] = l[3];
+        
     }
     
     /* allows the player to make their turn */
     public int makeTurn(int loc[]){
+        /* ensures the game isn't done */
+        if(state > 0){return 0;}
+        
         int fturn;
         
         /* quick reference to who's turn it is */
@@ -72,6 +86,8 @@ public class game {
         /* update the last move array */
         lastmove[0] = loc[2];
         lastmove[1] = loc[3];
+        lastmove[2] = loc[0];
+        lastmove[3] = loc[1];
         
         /* determine if the game is over */
         if (Util.game_done(newGame) >= 1){

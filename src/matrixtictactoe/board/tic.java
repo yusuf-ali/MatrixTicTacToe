@@ -32,7 +32,13 @@ public class tic {
      * without copying reference
      */
     public tic(tic dummy){
+        this.spots = dummy.getspots();
         
+        for(int i=0;i<3;i++){
+            for(int j=0;j<3;j++){        
+                this.t[i][j] = dummy.getState(i, j);
+            }
+        }
     }
     
     /* sets the value of the specified co-ordinate */
