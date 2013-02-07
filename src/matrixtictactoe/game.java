@@ -29,6 +29,18 @@ public class game {
         turn = true;
     }
     
+    /* 
+     * copy constructor
+     * allows object to be copied without
+     * copying the reference 
+     */
+    public game(game dummy){
+        this.newGame = dummy.getBoard();
+        this.turn = dummy.getTurn();
+        this.state = dummy.getState();
+        this.lastmove = dummy.getLast();
+    }
+    
     /* allows the player to make their turn */
     public int makeTurn(int loc[]){
         int fturn;
@@ -69,6 +81,9 @@ public class game {
        return 1; 
     }
     
+    public int[] getLast(){
+        return lastmove;
+    }
     public int getState(){
         return state;
     }

@@ -18,6 +18,15 @@ public class board {
         }
     }
     
+    /*
+     * copy constructor 
+     * allows board to be copied without
+     * copying reference
+     */
+    public board(board dummy){
+        
+    }
+    
     public void setState(int[] loc, int value){
        b[loc[0]][loc[1]].setState(loc[2],loc[3], value);
     }
