@@ -10,7 +10,7 @@ import matrixtictactoe.game;
  * determine the optimal move
  * http://en.wikipedia.org/wiki/Alpha–beta_pruning
  */
-public class engine {
+public class engine extends heuristic {
     
     private game master;    
     private game best_move;
@@ -19,9 +19,18 @@ public class engine {
         master = Game;
     }
     
-    /* obtains the heuristic value of the current position */
-    private double heuristic(game Game){
-        return 0;
+    public int[] determinemove(game Game,int depth){
+        /* call the alpha beta pruning methods */
+        make_descision(Game,depth,-999,999);
+        
+        /* get the resulting analysis */
+        int[] move = best_move.getLast();
+        
+        /* format into a readable int array */
+        int[] anyl = {move[2],move[3],move[0],move[1]};
+        
+        /* return the array */
+        return anyl;
     }
     
     /* returns all the possible board states */
