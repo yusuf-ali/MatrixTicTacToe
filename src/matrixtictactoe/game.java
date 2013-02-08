@@ -11,7 +11,7 @@ public class game {
     
     private util Util = new util();
     private board newGame = new board();    /* creates board game */
-    private boolean turn;                   /* 0 is X turn, 1 is O turn */
+    private boolean turn;                   /* false is X turn, true is O turn */
     private int state;                      /* returns winner int     */
     private int[] lastmove;                 /* co-ordinates of the last move */
     

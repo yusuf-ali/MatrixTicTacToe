@@ -8,6 +8,23 @@ import matrixtictactoe.board.tic;
  * do some simple calculations
  */
 public class util{
+    
+    /* 
+     * print board method
+     * this will create a simple
+     * println representation of the board
+     */
+    public void printTic(tic t){
+       for(int i=0;i<3;i++){
+           for(int j=0;j<3;j++){
+               
+               System.out.print(t.getState(i,j) + "|");
+               
+           }
+           System.out.println("\n------");
+       }
+    }
+    
 
 /*  
  *     1) this should dictate if a board is won 

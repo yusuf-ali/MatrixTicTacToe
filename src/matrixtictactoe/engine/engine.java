@@ -3,6 +3,7 @@ package matrixtictactoe.engine;
 import matrixtictactoe.board.board;
 import matrixtictactoe.board.tic;
 import matrixtictactoe.game;
+import matrixtictactoe.util;
 
 /*
  * this is the main engine class that
@@ -13,7 +14,8 @@ import matrixtictactoe.game;
 public class engine extends heuristic {
     
     private game master;    
-    private game best_move;
+    private game best_moveX;
+    private game best_moveO;
     
     public engine(game Game){
         master = Game;
@@ -23,8 +25,15 @@ public class engine extends heuristic {
         /* call the alpha beta pruning methods */
         make_descision(Game,depth,-999,999);
         
-        /* get the resulting analysis */
-        int[] move = best_move.getLast();
+        int move[];
+        
+        /* determine which player is needed for analysis */
+        if(Game.getTurn() == true){
+            /* get the resulting analysis */
+            move = best_moveO.getLast();
+        }else{
+            move = best_moveX.getLast();
+        }
         
         /* format into a readable int array */
         int[] anyl = {move[2],move[3],move[0],move[1]};
@@ -44,7 +53,8 @@ public class engine extends heuristic {
          * in the specific "smaller" board
          */
         int n = t.getspots();
-        game[] list = new game[n--];
+        game[] list = new game[n];
+        
         
         for(int i=0;i<3;i++){
             for(int j=0;j<3;j++){
@@ -58,9 +68,7 @@ public class engine extends heuristic {
                 
                 /* store the node into array */
                 list[n-1] = new game(Game);
-                list[n-1].makeTurn(f);
-                
-                n--;
+                list[--n].makeTurn(f);
                 
                 /* speed check... */
                 if(list[0] != null) {return list;}                
@@ -72,18 +80,21 @@ public class engine extends heuristic {
     
     public double make_descision(game Game,int depth,double floor,double ceiling){
         
-        /* if terminal node, returns the heuristic 
+        /* 
+         * if terminal node, returns the heuristic 
          * value of the board
          */
-        if(depth <= 0){ return heuristic(Game);}
+        if(depth <= 0 || Game.getState() > 0){ 
+            return heuristic(Game);
+        }
         
         /*
          * get all the possible board states
          */
-        game[] states = getBoards(Game);
+        game[] states = getBoards(Game);    
         game bestGame;  /* this will be the "best game" */      
         
-        if (Game.getTurn() == false){   /* this is O's turn */
+        if (Game.getTurn() == true){   /* this is O's turn */
             
             /* O wants to maximize the heuristic value */
             
@@ -94,12 +105,13 @@ public class engine extends heuristic {
                 /* obtain the heuristic 'best move' X can make */
                 double heuristic = make_descision(states[i],depth-1,floor,ceiling);
                 
-                /* figure out which move is best for O
+                /* 
+                 * figure out which move is best for O
                  * this will be the maximum move (worst senario for X)
                  */
                 if (heuristic >= floor){
                     floor = heuristic; bestGame = states[i];
-                    best_move = states[i];
+                    best_moveO = states[i];
                 }
                 
                 /*
@@ -129,7 +141,7 @@ public class engine extends heuristic {
                  */
                 if( heuristic <= ceiling){
                     ceiling = heuristic; bestGame = states[i];
-                    best_move = states[i];
+                    best_moveX = states[i];
                 }
                 
                 /*
@@ -145,8 +157,5 @@ public class engine extends heuristic {
         }
         
     }
-    
-    public game getbest(){
-        return best_move;
-    }
+   
 }

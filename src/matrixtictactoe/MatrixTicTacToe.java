@@ -1,6 +1,7 @@
 
 package matrixtictactoe;
 
+import matrixtictactoe.board.tic;
 import matrixtictactoe.engine.engine;
 
 
@@ -30,11 +31,25 @@ public class MatrixTicTacToe {
         //newGame.makeTurn(lo7);
         
         engine eng = new engine(newGame);
+        game[] states = eng.getBoards(newGame);
         
-        int[] j = eng.determinemove(newGame,4);
+        //int[] j = {0,0}; int x = 3;
+        //tic b = states[x].getBoard().getState(j);
+        //lol.printTic(b);
+        //System.out.println(states[x].getState());
         
-        System.out.println(newGame.getState() + "\n");
-        System.out.println(j[0] + "" + j[1] + "" + j[2] + "" + j[3]);
+        int[] f = eng.determinemove(newGame, 3);
+        System.out.println(f[0] + "" + f[1] + "" + f[2] + "" + f[3]);
+        
+        //System.out.println(states[x].getTurn());
+        //System.out.println(eng.heuristic(states[x]));
+        
+        //System.out.println(b.getState(0,1));
      
     }
+    
+    
+    
+    
+    
 }
