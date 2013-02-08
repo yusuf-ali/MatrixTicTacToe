@@ -18,6 +18,20 @@ public class board {
         }
     }
     
+    /*
+     * copy constructor 
+     * allows board to be copied without
+     * copying reference
+     */
+    public board(board dummy){
+        for(int i=0;i<3;i++){
+            for(int j=0;j<3;j++){
+                int[] loc = {i,j};
+                b[i][j] = new tic(dummy.getState(loc));
+            }
+        }
+    }
+    
     public void setState(int[] loc, int value){
        b[loc[0]][loc[1]].setState(loc[2],loc[3], value);
     }

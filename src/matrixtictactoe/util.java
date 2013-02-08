@@ -8,6 +8,23 @@ import matrixtictactoe.board.tic;
  * do some simple calculations
  */
 public class util{
+    
+    /* 
+     * print board method
+     * this will create a simple
+     * println representation of the board
+     */
+    public void printTic(tic t){
+       for(int i=0;i<3;i++){
+           for(int j=0;j<3;j++){
+               
+               System.out.print(t.getState(i,j) + "|");
+               
+           }
+           System.out.println("\n------");
+       }
+    }
+    
 
 /*  
  *     1) this should dictate if a board is won 
@@ -34,7 +51,7 @@ public class util{
                  * if it makes it this far, then clearly 
                  * there is 3 in a row
                  */
-                if(j+1 == 3){
+                if(j+1 == 2 && board.getState(i, j) > 0){
                     return board.getState(i,j+1);
                 }
                 
@@ -60,7 +77,7 @@ public class util{
                  * if it makes it this far, then clearly 
                  * there is 3 in a column
                  */
-                if(j+1 == 3){
+                if(j+1 == 2 && board.getState(i, j) > 0){
                     return board.getState(j+1,i);
                 }
                 
@@ -76,14 +93,14 @@ public class util{
                 break;
             }
             
-            if(i+1 == 2){
+            if(i+1 == 2 && board.getState(i, i) > 0){
                 return board.getState(i,i);
             }
         }
         
         /* another hard coded solution to the other main diagonal */
         if( board.getState(2,0) == board.getState(1,1)){
-            if(board.getState(2,0) == board.getState(0,2)){
+            if(board.getState(2,0) == board.getState(0,2) && board.getState(1,1) > 0){
                 return board.getState(1,1);
             }
         }
