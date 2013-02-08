@@ -3,7 +3,6 @@ package matrixtictactoe.engine;
 import matrixtictactoe.board.board;
 import matrixtictactoe.board.tic;
 import matrixtictactoe.game;
-import matrixtictactoe.util;
 
 /*
  * this is the main engine class that
@@ -12,34 +11,26 @@ import matrixtictactoe.util;
  * http://en.wikipedia.org/wiki/Alpha–beta_pruning
  */
 public class engine extends heuristic {
+
     
-    private game master;    
-    private game best_moveX;
-    private game best_moveO;
+    private int[] bestO = new int[4];
+    private int[] bestX = new int[4];
     
-    public engine(game Game){
-        master = Game;
+    public engine(){
     }
     
     public int[] determinemove(game Game,int depth){
         /* call the alpha beta pruning methods */
-        make_descision(Game,depth,-999,999);
-        
-        int move[];
+        make_descision(new game(Game),depth,-999,999);
         
         /* determine which player is needed for analysis */
         if(Game.getTurn() == true){
             /* get the resulting analysis */
-            move = best_moveO.getLast();
+            return bestO;
         }else{
-            move = best_moveX.getLast();
+            return bestX;
         }
-        
-        /* format into a readable int array */
-        int[] anyl = {move[2],move[3],move[0],move[1]};
-        
-        /* return the array */
-        return anyl;
+      
     }
     
     /* returns all the possible board states */
@@ -91,8 +82,7 @@ public class engine extends heuristic {
         /*
          * get all the possible board states
          */
-        game[] states = getBoards(Game);    
-        game bestGame;  /* this will be the "best game" */      
+        game[] states = getBoards(Game);       
         
         if (Game.getTurn() == true){   /* this is O's turn */
             
@@ -109,17 +99,20 @@ public class engine extends heuristic {
                  * figure out which move is best for O
                  * this will be the maximum move (worst senario for X)
                  */
-                if (heuristic >= floor){
-                    floor = heuristic; bestGame = states[i];
-                    best_moveO = states[i];
+                if (heuristic > floor){
+                    floor = heuristic; 
+                    int move[] = states[i].getLast();
+                    
+                    bestO[0] = move[2]; bestO[1] = move[3];
+                    bestO[2] = move[0]; bestO[3] = move[1];
                 }
                 
                 /*
                  * not sure if this works?
                  */
-                if (ceiling <= floor){
-                    break;
-                }
+                //if (ceiling <= floor){
+                //    break;
+                //}
                 
             }
             
@@ -140,16 +133,19 @@ public class engine extends heuristic {
                  * this will be the minimum move (worst senario for O)
                  */
                 if( heuristic <= ceiling){
-                    ceiling = heuristic; bestGame = states[i];
-                    best_moveX = states[i];
+                    ceiling = heuristic; 
+                    int move[] = states[i].getLast();
+                    
+                    bestX[0] = move[2]; bestX[1] = move[3];
+                    bestX[2] = move[0]; bestX[3] = move[1];
                 }
                 
                 /*
                  * not sure that this works?
                  */
-                if(floor <= ceiling){
-                    break;
-                }
+                //if(floor <= ceiling){
+                //    break;
+                //}
                 
             }
             
