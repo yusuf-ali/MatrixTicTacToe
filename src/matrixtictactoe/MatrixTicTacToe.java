@@ -18,6 +18,7 @@ public class MatrixTicTacToe {
         int lo5[] = {0,0,1,2};
         
         game newGame = new game(lo0);
+        game Jo = newGame;
        // newGame.makeTurn(lo1);
        // newGame.makeTurn(lo2);
        // newGame.makeTurn(lo3);
