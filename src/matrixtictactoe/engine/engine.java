@@ -12,9 +12,8 @@ import matrixtictactoe.game;
  */
 public class engine extends heuristic {
 
-    
-    private int[] bestO = new int[4];
-    private int[] bestX = new int[4];
+    private int[] bestMove = new int[4];
+    private int dph = 0;
     
     public engine(){
     }
@@ -23,14 +22,12 @@ public class engine extends heuristic {
         /* call the alpha beta pruning methods */
         make_descision(new game(Game),depth,-999,999);
         
-        /* determine which player is needed for analysis */
-        if(Game.getTurn() == true){
-            /* get the resulting analysis */
-            return bestO;
-        }else{
-            return bestX;
-        }
-      
+        // save the depth into the int 
+        dph = depth;
+        
+        /* return the best move */
+        return bestMove;
+        
     }
     
     /* returns all the possible board states */
@@ -101,10 +98,16 @@ public class engine extends heuristic {
                  */
                 if (heuristic > floor){
                     floor = heuristic; 
+                    
+                    // make sure the node analysis is the right one
+                    if(depth == dph){
                     int move[] = states[i].getLast();
                     
-                    bestO[0] = move[2]; bestO[1] = move[3];
-                    bestO[2] = move[0]; bestO[3] = move[1];
+                    bestMove[0] = move[2]; bestMove[1] = move[3];
+                    bestMove[2] = move[0]; bestMove[3] = move[1];
+                    
+                    }
+                    
                 }
                 
                 /*
@@ -134,10 +137,16 @@ public class engine extends heuristic {
                  */
                 if( heuristic <= ceiling){
                     ceiling = heuristic; 
+                    
+                    // make sure the node analysis is the right one
+                    if(depth == dph){
                     int move[] = states[i].getLast();
                     
-                    bestX[0] = move[2]; bestX[1] = move[3];
-                    bestX[2] = move[0]; bestX[3] = move[1];
+                    bestMove[0] = move[2]; bestMove[1] = move[3];
+                    bestMove[2] = move[0]; bestMove[3] = move[1];
+                    
+                    }
+                    
                 }
                 
                 /*
